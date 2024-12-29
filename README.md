@@ -35,14 +35,56 @@ The maximum possible groupings of adjacent ones are already shown in the figure.
 **Procedure**
 
 /* write all the steps invloved */
+```
+1.Use module projname(input,output) to start the Verilog programming.
+2.Assign inputs and outputs using the word input and output respectively.
+3.Use defined keywords like wire,assign and required logic gates to represent the boolean expression.
+4.Use each output to represent one for difference and the other for borrow.
+5.End the verilog program using keyword endmodule
+```
 
 **PROGRAM**
 
-/* Program for flipflops and verify its truth table in quartus using Verilog programming. Developed by: RegisterNumber:
+/* Program for flipflops and verify its truth table in quartus using Verilog programming. Developed by:SHAABIN R S RegisterNumber:24006663
 */
+```
+module jk_flipflop (
+    input wire clk,   // Clock signal
+    input wire j,     // J input
+    input wire k,     // K input
+    input wire reset, // Asynchronous reset
+    output reg q,     // Q output
+    output wire q_bar // Complement of Q
+);
+
+    // Complement of Q
+    assign q_bar = ~q;
+
+    always @(posedge clk or posedge reset) begin
+        if (reset) begin
+            q <= 1'b0; // Reset Q to 0
+        end else begin
+            case ({j, k})
+                2'b00: q <= q;          // No change
+                2'b01: q <= 1'b0;       // Reset
+                2'b10: q <= 1'b1;       // Set
+                2'b11: q <= ~q;         // Toggle
+                default: q <= q;        // Default case (redundant)
+            endcase
+        end
+    end
+
+endmodule
+```
 
 **RTL LOGIC FOR FLIPFLOPS**
+![Screenshot 2024-12-29 212813](https://github.com/user-attachments/assets/0cf3c3ee-d314-4e04-b892-467318828627)
+
 
 **TIMING DIGRAMS FOR FLIP FLOPS**
+![Screenshot 2024-12-29 212835](https://github.com/user-attachments/assets/98a60b9e-0b67-43c7-9f99-d374a8d6513f)
+
 
 **RESULTS**
+
+Thus the JK flipflop is implemented using verilog and validated their functionality using their functional table
